@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <title>Admin</title>
+  </head>
+  <body>
+    <%- include('partials/navbar'); %>
+    <section class="container text-center mt-4">
+      <h1>
+        Crea un nuevo articulo <a href="/admin/articles/crear" class="btn btn-primary">AQUI</a>
+      </h1>
+    </section>
+
+    <div class="container mt-4">
+      <h2>Articles</h2>
+      <table class="table table-striped border">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Firsname</th>
+            <th scope="col">Lastname</th>
+            <th scope="col">Email</th>
+            <th scope="col">Created at</th>
+            <th scope="col">Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(const user of users) {%>
+          <tr>
+            <td><%= user.id %></td>
+            <td><%= user.firstname %></td>
+            <td><p><%= user.lastname %></p></td>
+            <td>
+              <p><%= user.email %></p>
+            </td>
+            <td><%= format(new Date(user.createdAt),"Pp",{locale: spanishLocale,}) %></td>
+            <td><%= user.role.type%></td>
+
+            <td>
+              <a href="/admin/destroyUser/<%=user.id%>" class="btn btn-danger">Eliminar</a>
+            </td>
+          </tr>
+
+          <%}%>
+        </tbody>
+      </table>
+    </div>
+
+    <%- include('partials/footer'); %>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

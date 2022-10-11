@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Articles</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/css/articles.css" />
+  </head>
+  <body>
+    <%- include('./partials/navbar') %>
+    <div id="imagen-de-fondo">
+      <div class="container altura-contenedor-header">
+        <div class="row mx-auto">
+          <div class="col text-white" id="titulo-header">
+            <h1><%= article.title %></h1>
+            <small
+              >creado por <%= article.user.firstname %> <%= article.user.lastname %> el <%=
+              article.createdAt %>
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section>
+      <div class="container mt-5 mb-5">
+        <div class="row">
+          <div class="col-6 padding-left">
+            <img src="img/<%= article.image %> " alt="" />
+          </div>
+          <div class="col-6 padding-left">
+            <p><%= article.content %></p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="comments">
+      <div class="container">
+        <h2 class="text-center mb-5">Add new comments</h2>
+        <div class="border p-5 mb-5">
+          <form action="/articles/<%= article.id %>/comment" method="post">
+            <div class="form-floating mb-5">
+              <textarea
+                name="content"
+                class="form-control"
+                placeholder="Leave a comment here"
+                id="floatingTextarea2"
+                style="height: 100px"
+              ></textarea>
+              <label for="floatingTextarea2"></label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </form>
+        </div>
+        <h2 class="text-center mb-5">Comments (<%= comments.length %>)</h2>
+        <% for (const comment of comments) { %>
+        <div class="border p-5 mb-5">
+          <p><%= comment.content %></p>
+          <div class="border-top">
+            <p class="d-flex justify-content-between p-2">
+              <% if (!comment.userId) {%> Anonymous <% } %> <% if (comment.userId) {%> <%=
+              comment.user.firstname %> <%= comment.user.lastname%> <% } %>
+
+              <small><%= comment.createdAt %> </small>
+            </p>
+          </div>
+        </div>
+
+        <% } %>
+      </div>
+    </section>
+
+    <%- include('./partials/footer') %>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="/">Hack the blog</a>
+    <div class="" id="">
+      <% if(user){ %>
+      <a class="btn btn-primary" href="/admin/userProfile">Profile</a>
+      <a class="btn btn-primary" href="/admin/users">Users</a>
+      <a class="btn btn-primary" href="/admin">Admin</a>
+      <a class="btn btn-danger" href="/logout">Logout</a>
+      <% }else{ %>
+      <a class="btn btn-success" href="/login">Login</a>
+
+      <% } %>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,62 @@
+/* Colocar aquí CSS "propio" */
+#imagen-de-fondo {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../img/card\ 2.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.altura-contenedor-header {
+  height: 533px;
+}
+.titulo-header h1 {
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 80px;
+}
+.titulo-header small {
+  font-weight: 300;
+  font-size: 24px;
+  color: #ffffff;
+}
+
+.tituloArticulo {
+  font-style: normal;
+  font-weight: 800;
+  font-size: 2rem;
+  line-height: 2.7rem;
+  color: #000000;
+}
+.fechaArticulo {
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: #76757d;
+}
+.divArticuloHome {
+  width: 80%;
+  margin: auto;
+}
+.content {
+  display: block;
+}
+@media (max-width: 971px) {
+  .titulo-header h1 {
+    font-size: 48px;
+  }
+}
+.articleInAdmin {
+  box-sizing: border-box;
+  max-width: 300px;
+}
+
+.list-img img {
+  width: 10rem;
+}
+
+.list-content p {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
