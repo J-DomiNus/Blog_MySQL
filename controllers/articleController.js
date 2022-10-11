@@ -1,19 +1,24 @@
-const { Article, User, Comment } = require("../models");
+const { Article, User, Comment, Role } = require("../models");
 const formidable = require("formidable");
 const { format } = require("date-fns");
 const spanishLocale = require("date-fns/locale/es");
 const ROLE = require("../constants");
 
 // Display a listing of the resource.
-async function showUserArticles(req, res) {
+
+async function index(req, res) {
+  const articles = await Article.findAll({ include: User, Role, order: [["id", "DESC"]] });
+  const role = ROLE.ADMIN;
+  res.render("admin", { articles, role, format, spanishLocale });
+}
+async function indexUserArticles(req, res) {
   const userArticles = await Article.findAll({ where: { userId: req.user.id }, include: User });
   res.render("userProfile", { userArticles, format, spanishLocale });
 }
 
 // Display the specified resource.
-async function show(req, res) {
-  //get article by id
 
+async function show(req, res) {
   const article = await Article.findByPk(req.params.id, { include: [User, Comment] });
 
   const comments = await Comment.findAll({
@@ -28,7 +33,14 @@ async function show(req, res) {
 }
 
 // Show the form for creating a new resource
+
 async function create(req, res) {
+  return res.render("createArticle");
+}
+
+// Store a newly created resource in storage.
+
+async function store(req, res) {
   const form = formidable({
     multiples: true,
     uploadDir: __dirname + "/../public/img",
@@ -49,11 +61,19 @@ async function create(req, res) {
   await res.redirect("/admin");
 }
 
-// Store a newly created resource in storage.
-async function store(req, res) {}
-
 // Show the form for editing the specified resource.
+
 async function edit(req, res) {
+  const article = await Article.findByPk(req.params.id, { include: "user" });
+
+  res.render("editArticle", {
+    article,
+  });
+}
+
+// Update the specified resource in storage.
+
+async function update(req, res) {
   await Article.update(
     {
       title: req.body.title,
@@ -71,19 +91,8 @@ async function edit(req, res) {
   res.redirect("/admin");
 }
 
-// Update the specified resource in storage.
-async function createArticle(req, res) {
-  return res.render("createArticle");
-}
-
-async function editArticle(req, res) {
-  const article = await Article.findByPk(req.params.id, { include: "user" });
-
-  res.render("editArticle", {
-    article,
-  });
-}
 // Remove the specified resource from storage.
+
 async function destroy(req, res) {
   await Article.destroy({
     where: { id: req.params.id },
@@ -94,16 +103,13 @@ async function destroy(req, res) {
   res.redirect("/admin");
 }
 
-// Otros handlers...
-// ...
-
 module.exports = {
+  index,
+  indexUserArticles,
   show,
   create,
-  createArticle,
   store,
   edit,
+  update,
   destroy,
-  editArticle,
-  showUserArticles,
 };

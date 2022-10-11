@@ -10,24 +10,24 @@ const atLeastEditor = require("../middlewares/atLeastEditor");
 // Rutas del Admin:
 // ...
 adminRouter.use(ensureAuthenticated);
-adminRouter.get("/", atLeastEditor, pagesControllers.showAdmin);
+adminRouter.get("/", atLeastEditor, articleController.index);
 
-adminRouter.get("/edit/:id", articleController.editArticle);
+adminRouter.get("/users", atLeastAdmin, userController.index);
+
+adminRouter.get("/userProfile", atLeastWriter, articleController.indexUserArticles);
+
+adminRouter.get("/articles/crear", articleController.create);
+
+adminRouter.post("/articles/crear", articleController.store);
+
+adminRouter.get("/edit/:id", articleController.edit);
+
+adminRouter.post("/edit/:id", articleController.update);
 
 adminRouter.get("/destroy/:id", atLeastAdmin, articleController.destroy);
 
 adminRouter.get("/destroyMyArticle/:id", atLeastWriter, articleController.destroy);
 
-adminRouter.post("/articles/crear", articleController.create);
-
-adminRouter.post("/edit/:id", articleController.edit);
-
-adminRouter.get("/articles/crear", articleController.createArticle);
-
-adminRouter.get("/userProfile", atLeastWriter, articleController.showUserArticles);
-
 adminRouter.get("/destroyUser/:id", atLeastAdmin, userController.destroy);
-
-adminRouter.get("/users", atLeastAdmin, userController.index);
 
 module.exports = adminRouter;
