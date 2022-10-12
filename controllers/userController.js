@@ -9,19 +9,17 @@ async function index(req, res) {
   res.render("users", { users, format, spanishLocale });
 }
 
-// Display the specified resource.
-async function show(req, res) {
+// Show the form for creating a new resource
+
+async function create(req, res) {
   const userName = req.flash("user");
   const roles = await Role.findAll();
   res.render("register", { userName, roles });
 }
 
-async function showLogin(req, res) {
-  res.render("login");
-}
+// Store a newly created resource in storage.
 
-// Show the form for creating a new resource
-async function create(req, res) {
+async function store(req, res) {
   const userAuthentication = await User.findOne({
     where: { email: req.body.email },
   });
@@ -46,25 +44,8 @@ async function create(req, res) {
   }
 }
 
-async function logout(req, res) {
-  req.logout(function (err) {
-    if (err) {
-      return next(err);
-    }
-    res.redirect("/");
-  });
-}
-
-// Store a newly created resource in storage.
-async function store(req, res) {}
-
-// Show the form for editing the specified resource.
-async function edit(req, res) {}
-
-// Update the specified resource in storage.
-async function update(req, res) {}
-
 // Remove the specified resource from storage.
+
 async function destroy(req, res) {
   const userArticles = await Article.findAll({ where: { userId: req.params.id } });
   console.log(userArticles);
@@ -75,17 +56,28 @@ async function destroy(req, res) {
   await res.redirect("/admin");
 }
 
-// Otros handlers...
-// ...
+// Display login page
+
+async function login(req, res) {
+  res.render("login");
+}
+
+// Ends user session
+
+async function logout(req, res) {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+}
 
 module.exports = {
   index,
-  show,
   create,
   store,
-  edit,
-  update,
   destroy,
-  showLogin,
+  login,
   logout,
 };

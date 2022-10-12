@@ -11,6 +11,7 @@ async function index(req, res) {
   const role = ROLE.ADMIN;
   res.render("admin", { articles, role, format, spanishLocale });
 }
+
 async function indexUserArticles(req, res) {
   const userArticles = await Article.findAll({ where: { userId: req.user.id }, include: User });
   res.render("userProfile", { userArticles, format, spanishLocale });
@@ -26,7 +27,7 @@ async function show(req, res) {
     order: [["id", "DESC"]],
     include: User,
   });
-  res.render("articles", {
+  res.render("article", {
     article,
     comments,
   });

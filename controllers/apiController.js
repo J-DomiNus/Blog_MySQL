@@ -16,7 +16,7 @@ async function index(req, res) {
     return res.json(articles);
   }
   const articles = await Article.findAll({ include: User });
-  res.json(articles);
+  return res.json(articles);
 }
 
 // Token request
@@ -24,12 +24,12 @@ async function token(req, res) {
   const user = await User.findOne({ where: { email: req.body.email }, include: Role });
   if (user.role.type === "admin") {
     if (user.email !== req.body.email) {
-      return res.json("Email invalido");
+      return res.json({ message: "Invalid credentials" });
     }
     // Chequeo de hash
     const checkPassword = await bcrypt.compare(req.body.password, user.password);
     if (!checkPassword) {
-      return res.json("Password invalido");
+      return res.json({ message: "Invalid credentials" });
     }
     //   Otorgar token, el stringsecreto se almacena en .env
     const token = jwt.sign({ email: user.password }, process.env.DB_DATABASE);
@@ -44,11 +44,8 @@ async function token(req, res) {
 // Display the specified resource.
 async function show(req, res) {
   const article = await Article.findByPk(req.params.id, { include: [User, Comment] });
-  res.json(article);
+  return res.json(article);
 }
-
-// Show the form for creating a new resource
-async function create(req, res) {}
 
 // Store a newly created resource in storage.
 async function store(req, res) {
@@ -58,11 +55,8 @@ async function store(req, res) {
     userId: req.body.userId,
     image: req.body.image,
   });
-  res.json("The article was succesfully created");
+  return res.json({ message: "The article was succesfully created" });
 }
-
-// Show the form for editing the specified resource.
-async function edit(req, res) {}
 
 // Update the specified resource in storage.
 async function update(req, res) {
@@ -78,7 +72,7 @@ async function update(req, res) {
       },
     },
   );
-  res.json("The article was succesfully updated");
+  return res.json({ message: "The article was succesfully updated" });
 }
 
 // Remove the specified resource from storage.
@@ -86,19 +80,14 @@ async function destroy(req, res) {
   await Article.destroy({
     where: { id: req.params.id },
   });
-  res.send("Articulo borrado");
+  return res.json({ message: "The article was destroyed" });
 }
-
-// Otros handlers...
-// ...
 
 module.exports = {
   index,
   token,
   show,
-  create,
   store,
-  edit,
   update,
   destroy,
 };

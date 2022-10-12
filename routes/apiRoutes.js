@@ -8,15 +8,10 @@ apiRouter.post("/tokens", apiController.token);
 apiRouter.use(checkJwt({ secret: process.env.DB_DATABASE, algorithms: ["HS256"] }));
 
 apiRouter.get("/articles", apiController.index);
-
 apiRouter.get("/articles/:filter/:key", apiController.index);
-
-apiRouter.get("/article/:id", apiController.show);
-
-apiRouter.post("/articles/create", apiController.store);
-
+apiRouter.get("/articles/:id", apiController.show);
+apiRouter.post("/articles", apiController.store);
 apiRouter.patch("/articles/:id", apiController.update);
-
 apiRouter.delete("/articles/:id", apiController.destroy);
 
 module.exports = apiRouter;

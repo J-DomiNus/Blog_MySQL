@@ -13,19 +13,19 @@ const loggedUserRedirect = require("../middlewares/loggedUserRedirect");
 const ensureAuthenticated = require("../middlewares/ensureAuthenticated");
 
 // Rutas Públicas:
-publicRouter.get("/", pagesController.showHome);
+publicRouter.get("/", pagesController.index);
 
-publicRouter.get("/articles/json", pagesController.showJson);
+publicRouter.get("/articles/json", pagesController.indexJson);
 
 publicRouter.get("/articles/:id", articleController.show);
 
-publicRouter.get("/register", loggedUserRedirect, userController.show);
+publicRouter.get("/register", loggedUserRedirect, userController.create);
 
-publicRouter.post("/register", userController.create);
+publicRouter.post("/register", userController.store);
 
-publicRouter.post("/articles/:id/comment", ensureAuthenticated, commentController.create);
+publicRouter.post("/articles/:id/comment", ensureAuthenticated, commentController.store);
 
-publicRouter.get("/login", loggedUserRedirect, userController.showLogin);
+publicRouter.get("/login", loggedUserRedirect, userController.login);
 
 publicRouter.post(
   "/login",
