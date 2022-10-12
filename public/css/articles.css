@@ -1,30 +1,28 @@
-#imagen-de-fondo {
+/* .background-img {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("../img/card\ 2.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+} */
+
+header {
+  height: 533px;
+  display: flex;
+  align-items: center;
 }
-/*#titulo-header {
-  width: 50.625rem;
-  margin: 0 auto;
-}*/
-#titulo-header h1 {
+
+header h1 {
   font-family: Open Sans;
   font-style: normal;
   font-weight: 800;
   font-size: 48px;
 }
 
-.altura-contenedor-header {
-  height: 533px;
-  display: flex;
-  align-items: center;
-}
 #titulo-header small {
   font-family: Open Sans;
   font-style: italic;
   font-weight: 400;
-  font-size: 18px;
+  font-size: 1rem;
 }
 @media (max-width: 1200px) {
   .altura-contenedor-header {

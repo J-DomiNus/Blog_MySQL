@@ -16,9 +16,9 @@ adminRouter.get("/users", atLeastAdmin, userController.index);
 
 adminRouter.get("/userProfile", atLeastWriter, articleController.indexUserArticles);
 
-adminRouter.get("/articles/crear", articleController.create);
+adminRouter.get("/articles/create", articleController.create);
 
-adminRouter.post("/articles/crear", articleController.store);
+adminRouter.post("/articles", articleController.store);
 
 adminRouter.get("/edit/:id", articleController.edit);
 

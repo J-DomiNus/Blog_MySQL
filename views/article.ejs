@@ -11,32 +11,32 @@
       integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="/css/articles.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
   </head>
   <body>
     <%- include('./partials/navbar') %>
-    <div id="imagen-de-fondo">
-      <div class="container altura-contenedor-header">
-        <div class="row mx-auto">
-          <div class="col text-white" id="titulo-header">
-            <h1><%= article.title %></h1>
-            <small
-              >creado por <%= article.user.firstname %> <%= article.user.lastname %> el <%=
-              article.createdAt %>
-            </small>
+    <section>
+      <div
+        class="p-5 text-center bg-image rounded-3 position-relative imgHero img-fluid"
+        style="background-image: url(/img/<%= article.image %>)"
+      >
+        <div class="mask">
+          <div class="d-flex justify-content-center align-items-center h-100">
+            <div class="text-white position-absolute top-50 start-50 translate-middle">
+              <h1 class="mb-3 titleHack"><%= article.title %></h1>
+              <h4 class="mb-3 subtitleHack">
+                Creado por <%= article.user.firstname %> <%= article.user.lastname %> el <%=
+                format(new Date(article.updatedAt),"PPP",{locale: spanishLocale,}) %>
+              </h4>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
     <section>
       <div class="container mt-5 mb-5">
-        <div class="row">
-          <div class="col-6 padding-left">
-            <img class="list-img" src="../img/<%= article.image %> " alt="" />
-          </div>
-          <div class="col-6 padding-left">
-            <p><%= article.content %></p>
-          </div>
+        <div class="card p-5">
+          <p><%= article.content %></p>
         </div>
       </div>
     </section>

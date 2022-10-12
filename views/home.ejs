@@ -15,29 +15,34 @@
   </head>
   <body>
     <%- include('./partials/navbar') %>
-    <div id="imagen-de-fondo">
+    <section>
       <div
-        class="container d-flex flex-column justify-content-center altura-contenedor-header text-white"
+        class="p-5 text-center bg-image rounded-3 position-relative imgHero img-fluid"
+        style="background-image: url(/img/hero.jpg); height: 400px"
       >
-        <div class="text-center titulo-header" id="titulo-header">
-          <h1>Hack the blog</h1>
-          <small>El Blog de Hack Academy</small>
+        <div class="mask">
+          <div class="d-flex justify-content-center align-items-center h-100">
+            <div class="text-white position-absolute top-50 start-50 translate-middle">
+              <h1 class="mb-3 titleHack">Hack the Blog</h1>
+              <h4 class="mb-3 subtitleHack">El Blog de Hack Academy</h4>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <section id="SeccionMedia">
+    </section>
+    <section id="main">
       <div class="container mt-5">
         <% for( article of articles){ %>
         <div class="row">
           <div class="col col-lg-9 mx-auto mb-2">
-            <a
-              class="tituloArticulo text-decoration-none content"
-              href="/articles/<%= article.id %>"
-            >
-              <%= article.title %>
-            </a>
-            <small class="fechaArticulo"
-              ><%= article.user.firstname %> <%= article.user.lastname %>, <%= article.createdAt %>
+            <h3 class="artTitle mt-5">
+              <a href=<%= `/articles/${article.id}` %>>
+                <%= article.title %>
+              </a>
+            </h3>
+            <small class="artSmall"
+              ><%= article.user.firstname %> <%= article.user.lastname %>, <%=
+              format(new Date(article.updatedAt),"PPP",{locale: spanishLocale,}) %>
             </small>
 
             <hr />

@@ -30,6 +30,8 @@ async function show(req, res) {
   res.render("article", {
     article,
     comments,
+    format,
+    spanishLocale,
   });
 }
 
@@ -59,7 +61,7 @@ async function store(req, res) {
   if (req.user.role.code <= ROLE.WRITER) {
     return await res.redirect("/admin/userProfile");
   }
-  await res.redirect("/admin");
+  return await res.redirect("/admin");
 }
 
 // Show the form for editing the specified resource.
